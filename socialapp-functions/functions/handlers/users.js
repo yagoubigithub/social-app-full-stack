@@ -8,7 +8,7 @@ require("@firebase/firestore");
 
 const firebase = firebase_app.firebase;
 
-const { validateSignUpData, validateLoginData } = require("../util/validators");
+const { validateSignUpData, validateLoginData ,reduceUserDetails } = require("../util/validators");
 
 firebase.initializeApp(config);
 
@@ -98,7 +98,23 @@ exports.login = (req, res) => {
     });
 };
 
+/// add user details email,handle..
+exports.addUserDetails = (req,res)=>{
 
+  let userDetails  = reduceUserDetails(req.body);
+
+  db.collection('users').doc(req.user.handle).update(userDetails)
+  .then(()=>{
+    return res.json({message : "Details added succefuly"});
+  })
+  .catch(error=>{
+    console.log(error);
+    return res.status(500).json({error :  error.code})
+  })
+}
+
+
+//Upload a profile image
 exports.uploadImage = (req,res) =>{
   const BusBoy = require('busboy');
   const path = require('path');
