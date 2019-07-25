@@ -97,6 +97,42 @@ exports.login = (req, res) => {
       } else return res.status(500).json({ error: error.code });
     });
 };
+// get own user information
+
+exports.getAuthenticatedUser = (req,res)=>{
+
+  let userData = {};
+
+  db.collection('users').doc(req.user.handle).get()
+  .then((doc)=>{
+    if(doc.exists){
+      userData.credentials = doc.data();
+      return db.collection('likes').where('userHandle', '==', req.user.handle).get();
+    }
+  }).then(data=>{
+    userData.likes = [];
+    data.forEach(doc=>{
+      userData.likes.push(doc.data());
+    });
+    return res.json(userData)
+  }).catch(error=>{
+    console.log( error);
+    return  res.status(500).json({error :  error.code})
+  })
+}
+
+/*
+{
+"bio" : "Hello my name is user5, nice to  meet you",
+        "website" : "https://user_5.com",
+        "location" : "london,UK"
+}
+{
+	"email" : "user5@gmail.com",
+	"password" : "aek1234"
+}
+*/
+
 
 /// add user details email,handle..
 exports.addUserDetails = (req,res)=>{

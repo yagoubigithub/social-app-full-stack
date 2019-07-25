@@ -3,7 +3,7 @@ const functions = require("firebase-functions");
 
 const app = require("express")();
 
-const {signup,login,uploadImage,addUserDetails} = require('./handlers/users');
+const {signup,login,uploadImage,addUserDetails,getAuthenticatedUser} = require('./handlers/users');
 const {getAllScreams,postOneScream} = require('./handlers/screams');
 
 const FBAuth = require('./util/fbAuth');
@@ -18,7 +18,7 @@ app.get("/screams",getAllScreams);
 app.post("/scream",FBAuth, postOneScream);
 app.post('/user/image',FBAuth,uploadImage)
 app.post('/user',FBAuth,addUserDetails)
-
+app.get('/user',FBAuth,getAuthenticatedUser);
 
 
 
