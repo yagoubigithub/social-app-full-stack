@@ -19,11 +19,20 @@ let db = {
   screams: [
     {
       screamId: "g6O3wZBCeuaeoo7k854K",
-      createdAt: "",
-      userHandel: "ff",
+      createdAt: "2019-07-19T14:26:09.825Z",
+      userHandel: "user5",
       body: "Hello body",
       likeCount: 5,
       commentCount: 2
+    }
+  ],
+  comments : [
+    {
+      screamId: "g6O3wZBCeuaeoo7k854K",
+      createdAt: "2019-07-20T14:26:09.825Z",
+      userHandel: "user5",
+      body: "Hello body",
+     
     }
   ]
 };
