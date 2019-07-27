@@ -81,6 +81,26 @@ exports.createNotificationOnLike = functions.region("europe-west1").firestore.do
     }))
 });
 
+exports.deleteNotificationOnUnlike = functions.region("europe-west1").firestore.document('likes/{id}')
+.onDelete(snapshot=>{
+    db.doc(`/screams/${snapshot.data().screamId}`).get()
+    .then(doc=>{
+        if(doc.exists){
+            return db.doc(`/notification/${snapshot.id}`).delete()
+        }
+    })
+    .then(()=>{
+        return ;
+    })
+    .catch((error=>{
+        console.log(error);
+        return;
+    }))
+});
+
+
+
+
 
 exports.createNotificationOnComment = functions.region("europe-west1").firestore.document('comments/{id}')
 .onCreate(snapshot=>{
