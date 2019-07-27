@@ -61,7 +61,7 @@ exports.createNotificationOnLike = functions.region("europe-west1").firestore.do
     db.doc(`/screams/${snapshot.data().screamId}`).get()
     .then(doc=>{
         if(doc.exists){
-            return db.doc(`/notification/${snapshot.id}`).set({
+            return db.doc(`/notifications/${snapshot.id}`).set({
                 createdAt : new Date().toISOString(),
                 recipient : doc.data().userHandle,
                 sender :  snapshot.data().userHandle,
@@ -86,7 +86,7 @@ exports.deleteNotificationOnUnlike = functions.region("europe-west1").firestore.
     db.doc(`/screams/${snapshot.data().screamId}`).get()
     .then(doc=>{
         if(doc.exists){
-            return db.doc(`/notification/${snapshot.id}`).delete()
+            return db.doc(`/notifications/${snapshot.id}`).delete()
         }
     })
     .then(()=>{
@@ -107,7 +107,7 @@ exports.createNotificationOnComment = functions.region("europe-west1").firestore
     db.doc(`/screams/${snapshot.data().screamId}`).get()
     .then(doc=>{
         if(doc.exists){
-            return db.doc(`/notification/${snapshot.id}`).set({
+            return db.doc(`/notifications/${snapshot.id}`).set({
                 createdAt : new Date().toISOString(),
                 recipient : doc.data().userHandle,
                 sender :  snapshot.data().userHandle,
