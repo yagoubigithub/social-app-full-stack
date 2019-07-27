@@ -2,6 +2,7 @@ const functions = require("firebase-functions");
 
 const app = require("express")();
 
+const {db} = require('./util/admin');
 const {
   signup,
   login,
@@ -52,3 +53,30 @@ app.get("/scream/:screamId/unlike", FBAuth, unLikeScream);
 */
 
 exports.api = functions.region("europe-west1").https.onRequest(app);
+
+
+
+exports.createNotificationOnLike = functions.region("europe-west1").firestore.document('likes/{id}')
+.onCreate(snapshot=>{
+    db.doc(`/screams/${snapshot.data().screamId}`).get()
+    .then(doc=>{
+        if(doc.exists){
+            return db.doc(`/notification/${snapshot.id}`).set({
+                createdAt : new Date().toISOString(),
+                recipient : doc.data().userHandle,
+                sender :  snapshot.data().userHandle,
+                read :false,
+                screamId : doc.id,
+                type : "like",
+
+            })
+        }
+    })
+    .then(()=>{
+        return ;
+    })
+    .catch((error=>{
+        console.log(error);
+        return;
+    }))
+})
