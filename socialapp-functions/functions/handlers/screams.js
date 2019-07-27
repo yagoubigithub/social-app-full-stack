@@ -89,7 +89,7 @@ exports.commentOnScream = (req, res) => {
     body : req.body.body,
     createdAt : new Date().toISOString(),
     screamId : req.params.screamId,
-    lele : req.user.handle,
+    userHandle : req.user.handle,
     userImage : req.user.imageUrl
   }
 
@@ -98,7 +98,11 @@ exports.commentOnScream = (req, res) => {
     if(!doc.exists){
       return res.status(404).json({error : "Scream not found"})
     }
+    return doc.ref.update({commentCount : doc.data().commentCount + 1});
+  })
+  .then(()=>{
     return db.collection('comments').add(newComments)
+  })
     .then(()=>{
       return res.json(newComments)
     })
@@ -106,7 +110,7 @@ exports.commentOnScream = (req, res) => {
       console.log(error);
       return res.status(500).json({error : error.code})
     })
-  })
+  
 
 }
 
@@ -156,6 +160,7 @@ exports.likescream= (req,res)=>{
 
 };
 
+// unlike a scream
 exports.unLikeScream = (req, res)=>{
   const likesDocument = db.collection('likes').where('userHandle', '==', req.user.handle)
   .where('screamId', '==', req.params.screamId).limit(1)
