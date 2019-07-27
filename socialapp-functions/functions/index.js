@@ -4,7 +4,7 @@ const functions = require("firebase-functions");
 const app = require("express")();
 
 const {signup,login,uploadImage,addUserDetails,getAuthenticatedUser} = require('./handlers/users');
-const {getAllScreams,postOneScream,getScream, commentOnScream} = require('./handlers/screams');
+const {getAllScreams,postOneScream,getScream, commentOnScream,likescream,unLikeScream} = require('./handlers/screams');
 
 const FBAuth = require('./util/fbAuth');
 
@@ -23,10 +23,22 @@ app.post("/scream",FBAuth, postOneScream);
 app.get('/scream/:screamId', getScream)
 app.post('/scream/:screamId/comment', FBAuth, commentOnScream)
 //TODO : delete scream
-//TODO : like scream
-//TODO : unlike scream
+app.get('/scream/:screamId/like',FBAuth, likescream)
+app.get('/scream/:screamId/unlike',FBAuth, unLikeScream)
 //TODO : comment on scream
 
+
+/*
+{
+"bio" : "Hello my name is user5, nice to  meet you",
+        "website" : "https://user_5.com",
+        "location" : "london,UK"
+}
+{
+	"email" : "user5@gmail.com",
+	"password" : "aek1234"
+}
+*/
 
 
 

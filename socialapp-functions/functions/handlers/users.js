@@ -121,18 +121,6 @@ exports.getAuthenticatedUser = (req,res)=>{
   })
 }
 
-/*
-{
-"bio" : "Hello my name is user5, nice to  meet you",
-        "website" : "https://user_5.com",
-        "location" : "london,UK"
-}
-{
-	"email" : "user5@gmail.com",
-	"password" : "aek1234"
-}
-*/
-
 
 /// add user details email,handle..
 exports.addUserDetails = (req,res)=>{
