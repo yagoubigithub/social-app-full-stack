@@ -26,7 +26,7 @@ exports.postOneScream = (req, res) => {
     return res.status(400).json({ body: "Must not be empty" });
   const newScream = {
     body: req.body.body,
-    leel: req.user.handle,
+    userHandle: req.user.handle,
     createdAt: new Date().toISOString(),
     userImage : req.user.imageUrl,
     likeCount: 0,
@@ -198,4 +198,31 @@ exports.unLikeScream = (req, res)=>{
     console.log(error);
     return res.status(500).json({error : error.code})
   })
+}
+
+
+// delete scream 
+
+exports.deleteScream = (req,res) =>{
+  const document = db.doc(`/screams/${req.params.screamId}`);
+
+  document.get()
+  .then(doc=>{
+    if(!doc.exists){
+      return res.status(404).json({error : "Scream not found"})
+    }
+    if(doc.data().userHandle !== req.user.handle){
+      return res.status(403).json({error : "Unauthorized"})
+    }else{
+      document.delete();
+    }
+  })
+  .then(()=>{
+     res.json({message : "Scream deleted successfully"})
+  })
+  .catch(error=>{
+    console.error(error);
+    return res.status(500).json({error : error.code})
+  })
+
 }

@@ -34,6 +34,16 @@ let db = {
       body: "Hello body",
      
     }
+  ],
+  notifications : [
+    {
+      recipient : "user5",
+      sender : "user6",
+      read : "true | false",
+      screamId : "tbRK3b9O3BBmlvWDicRI",
+      type : "like | comment",
+      createdAt :   "2019-07-20T14:26:09.825Z",
+    }
   ]
 };
 const userDetails = {
