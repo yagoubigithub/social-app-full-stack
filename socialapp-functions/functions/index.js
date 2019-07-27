@@ -79,4 +79,30 @@ exports.createNotificationOnLike = functions.region("europe-west1").firestore.do
         console.log(error);
         return;
     }))
+});
+
+
+exports.createNotificationOnComment = functions.region("europe-west1").firestore.document('comments/{id}')
+.onCreate(snapshot=>{
+    db.doc(`/screams/${snapshot.data().screamId}`).get()
+    .then(doc=>{
+        if(doc.exists){
+            return db.doc(`/notification/${snapshot.id}`).set({
+                createdAt : new Date().toISOString(),
+                recipient : doc.data().userHandle,
+                sender :  snapshot.data().userHandle,
+                read :false,
+                screamId : doc.id,
+                type : "comment",
+
+            })
+        }
+    })
+    .then(()=>{
+        return ;
+    })
+    .catch((error=>{
+        console.log(error);
+        return;
+    }))
 })
