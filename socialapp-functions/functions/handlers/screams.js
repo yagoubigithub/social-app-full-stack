@@ -9,7 +9,7 @@ exports.getAllScreams = (req, res) => {
       data.forEach(doc => {
         screams.push({
           screamId: doc.id,
-          ...doc.data()
+          ...doc.data(),
         });
       });
       return res.json(screams);
@@ -81,7 +81,7 @@ exports.getScream = (req, res) => {
 exports.commentOnScream = (req, res) => {
 
   if(req.body.body.trim() === ''){
-    return res.status(400).json({error : "Must not be Empty"});
+    return res.status(400).json({comment : "Must not be Empty"});
   }
 
   const newComments = {
