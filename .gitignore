@@ -1,2 +1,3 @@
-node_modules/
+/social-app-client/node_modules/
 package-lock.json
+/socialapp-functions/node_modules/
