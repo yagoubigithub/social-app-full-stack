@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
 
   const { valid, errors } = validateSignUpData(newUser);
 
-  if (!valid) return res.status(400).json({ errors : errors.errors });
+  if (!valid) return res.status(400).json({ ...errors  });
 
   const noImge = "no-img.png";
   let token, userId;
@@ -34,7 +34,7 @@ exports.signup = (req, res) => {
     .get()
     .then(doc => {
       if (doc.exists) {
-        return res.status(400).json({ error: "this handle is already taken" });
+        return res.status(400).json({ handle: "this handle is already taken" });
       } else {
         return firebase
           .auth()
@@ -84,7 +84,7 @@ exports.login = (req, res) => {
 
   const { valid, errors } = validateLoginData(user);
 
-  if (!valid) return res.status(400).json({ errors : errors.errors });
+  if (!valid) return res.status(400).json({ ...errors  });
 
   firebase
     .auth()
