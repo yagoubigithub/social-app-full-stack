@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
 
   const { valid, errors } = validateSignUpData(newUser);
 
-  if (!valid) return res.status(400).json({ errors });
+  if (!valid) return res.status(400).json({ errors : errors.errors });
 
   const noImge = "no-img.png";
   let token, userId;
@@ -84,7 +84,7 @@ exports.login = (req, res) => {
 
   const { valid, errors } = validateLoginData(user);
 
-  if (!valid) return res.status(400).json({ errors });
+  if (!valid) return res.status(400).json({ errors : errors.errors });
 
   firebase
     .auth()
