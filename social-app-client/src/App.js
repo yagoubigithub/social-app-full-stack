@@ -7,6 +7,11 @@ import jwtDecode from 'jwt-decode';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
+//Redux
+import {Provider} from 'react-redux';
+import store from './redux/store';
+
+
 //Pages
 import home from "./pages/home";
 import login from "./pages/login";
@@ -20,25 +25,26 @@ const theme = createMuiTheme(themeObject)
 
 let authenticated;
 const token  = localStorage.FBIdToken;
+
 if(token){
 
-  const decodeToken  = jwtDecode(token);
-  console.log(decodeToken)
-  if(decodeToken.exp * 1000 < Date.now()){
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
     window.location.href = '/login';
     authenticated = false;
   }else{
     authenticated= true;
   }
 }
-
+console.log(authenticated)
 
 class App extends Component  {
 
   render(){
     return (
      <MuiThemeProvider  theme={theme}>
-        <div className="App">
+     <Provider store={store}>
+     <div className="App">
         <Router>
           <Navbar />
           <div className="container">
@@ -50,6 +56,8 @@ class App extends Component  {
           </div>
         </Router>
       </div>
+     </Provider>
+      
      </MuiThemeProvider>
     );
   }
