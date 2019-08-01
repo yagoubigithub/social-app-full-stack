@@ -126,7 +126,6 @@ exports.getAuthenticatedUser = (req, res) => {
       data.forEach(doc => {
         userData.likes.push(doc.data());
       });
-      console.log("likes", userData);
       return db
         .collection("notifications")
         .where("recipient", "==", req.user.handle)
@@ -136,20 +135,27 @@ exports.getAuthenticatedUser = (req, res) => {
     })
     .then(data => {
       userData.notifications = [];
-      data.forEach(doc => {
-        userData.notifications.push({
-          recipient: doc.data().recipient,
-          sender: doc.data().sender,
-          read: doc.data().read,
-          screamId: doc.data().screamId,
-          type: doc.data().type,
-          createdAt: doc.data().createdAt,
-          notificationId: doc.id
+      if(data.empty){
+        return   res.json(userData);
+      }else{
+        data.forEach(doc => {
+          userData.notifications.push({
+            recipient: doc.data().recipient,
+            sender: doc.data().sender,
+            read: doc.data().read,
+            screamId: doc.data().screamId,
+            type: doc.data().type,
+            createdAt: doc.data().createdAt,
+            notificationId: doc.id
+          });
+  
+          
         });
-
         console.log("notifications", userData);
-        return res.json(userData);
-      });
+          return res.json(userData);
+      }
+      
+      
     })
 
     .catch(error => {

@@ -4,6 +4,13 @@ import PropTypes from "prop-types";
 import AppIcon from "../images/icon.png";
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import {loginUser} from '../redux/actions/userActions'
+
+//Reux stuff
+
+import {connect} from 'react-redux';
+
+
 
 //Mui staff
 import Grid from "@material-ui/core/Grid";
@@ -25,9 +32,16 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loading: false,
+     
       errors: {}
     };
+  }
+
+  componentWillReceiveProps = (nextProps)=>{
+
+    if(nextProps.UI.errors){
+      this.setState({errors : nextProps.UI.errors});
+    }
   }
   handleSubmit = event => {
     event.preventDefault();
@@ -36,22 +50,9 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.setState({ loading: true });
-    axios
-      .post("/login", userData)
-      .then(res => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-        
-        this.setState({ loading: false });
-        this.props.history.push("/");
-      })
-      .catch(error => {
-        console.log(error.response.data);
-        this.setState({
-          errors: error.response.data,
-          loading: false
-        });
-      });
+    this.props.loginUser(userData,this.props.history);
+   
+    
   };
   handleChange = event => {
     this.setState({
@@ -59,8 +60,8 @@ class Login extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
-    const {loading , errors} = this.state;
+    const { classes, UI :{loading} } = this.props;
+    const { errors} = this.state;
 
     return (
       <Grid container className={classes.form}>
@@ -124,7 +125,25 @@ class Login extends Component {
   }
 }
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loginUser : PropTypes.func.isRequired,
+  user : PropTypes.object.isRequired,
+  UI : PropTypes.object.isRequired
 };
+const mapStateToProps = (state) =>{
 
-export default withStyles(styles)(Login);
+  console.log(state);
+  return {
+    user :  state.user,
+    UI : state.UI
+  }
+}
+const mapActionToProps = (dispatch) =>{
+  
+  return {
+    loginUser : (userData,history)=>dispatch(loginUser(userData,history))
+  }
+   
+}
+
+export default connect(mapStateToProps,mapActionToProps)(withStyles(styles)(Login));
