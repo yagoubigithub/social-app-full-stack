@@ -37,7 +37,7 @@ if(token){
   }else{
     store.dispatch({type: SET_AUTHENTICATED});
     axios.defaults.headers.common["Authorization"] = token;
-    store.dispatch(logoutUser())
+    store.dispatch(getUserData());
   }
 }
 console.log(authenticated)
