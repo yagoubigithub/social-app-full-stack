@@ -5,7 +5,7 @@ import { Link } from "react-router-dom/";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import MyButton from '../util/MyButton';
-
+import DeleteScream from './DeleteScream';
 //  Mui staff
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -23,7 +23,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const styles = {
   card: {
     display: "flex",
-    marginBottom: 20
+    marginBottom: 20,
+    position : 'relative'
   },
   image: {
     minWidth: 200
@@ -56,10 +57,12 @@ class Scream extends Component {
         createdAt,
         userHandle,
         userImage,
-        likeCount
+        likeCount,
+        screamId
       },
       user :{
-        authenticated
+        authenticated,
+        credentials : {handle}
       }
     } = this.props;
     const likeButton = !authenticated ? (
@@ -84,6 +87,10 @@ class Scream extends Component {
    </MyButton>
    );
 
+   const deleteButton = authenticated && userHandle === handle ? 
+   (
+<DeleteScream screamId={screamId} />
+   ) : null;
     return (
       <Card className={classes.card}>
         <CardMedia image={userImage} className={classes.image} />
@@ -96,6 +103,7 @@ class Scream extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
