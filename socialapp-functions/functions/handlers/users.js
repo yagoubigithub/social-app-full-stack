@@ -198,7 +198,7 @@ exports.uploadImage = (req, res) => {
       });
     }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
-    imageFileName = `${new Date().getMilliseconds}.${imageExtension}`;
+    imageFileName = `${Date.now()}.${imageExtension}`;
     const filepath = path.join(os.tmpdir(), imageFileName);
     imageToBeUploaded = { filepath, mimetype };
 

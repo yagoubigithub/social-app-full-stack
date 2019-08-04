@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
-import dayjs from 'dayjs'
-
+import dayjs from "dayjs";
+import EditDetails from '../components/EditDetails'
 
 //icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
+
 //Mui staff
 import Buttton from "@material-ui/core/Button";
 import MuiLink from "@material-ui/core/Link";
@@ -20,26 +22,30 @@ import Paper from "@material-ui/core/Paper";
 
 //redux
 import { connect } from "react-redux";
-import {logoutUser,uploadImage} from '../redux/actions/userActions'
+import { logoutUser, uploadImage } from "../redux/actions/userActions";
 
 const styles = theme => ({
   ...theme.spreadThis
 });
 class Profile extends Component {
 
-    handleImageChange = (event) =>{
-        const image = event.target.files[0];
+  handleLogOut= () =>{
+    this.props.logoutUser();
+  }
 
-        //send to the server
+  handleImageChange = event => {
+    const image = event.target.files[0];
 
-        const formData= new FormData();
-        formData.append('image',image,image.name);
-        this.props.uploadImage(formData);
-    }
-    handleEditPicture = ()=>{
-        const fileInput = document.getElementById('imageInput');
-        fileInput.click();
-    }
+    //send to the server
+
+    const formData = new FormData();
+    formData.append("image", image, image.name);
+    this.props.uploadImage(formData);
+  };
+  handleEditPicture = () => {
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
+  };
   render() {
     const {
       classes,
@@ -55,15 +61,17 @@ class Profile extends Component {
           <div className={classes.profile}>
             <div className="image-wrapper">
               <img src={imageUrl} alt={handle} className="profile-image" />
-              <input type="file" hidden="hidden" id="imageInput" onChange={this.handleImageChange} />
-              <Tooltip  title="Edit image profile" placement="top">
-                   <IconButton onClick={this.handleEditPicture} color="secondary">
-              <EditIcon />
-
-
-              </IconButton>
+              <input
+                type="file"
+                hidden="hidden"
+                id="imageInput"
+                onChange={this.handleImageChange}
+              />
+              <Tooltip title="Edit image profile" placement="top">
+                <IconButton onClick={this.handleEditPicture} color="secondary">
+                  <EditIcon />
+                </IconButton>
               </Tooltip>
-             
             </div>
             <hr />
             <div className="profile-details">
@@ -87,33 +95,49 @@ class Profile extends Component {
                 </React.Fragment>
               )}
 
-              {website&& (
+              {website && (
                 <React.Fragment>
                   <LinkIcon color="primary" />
-                  <a href={website} target="_blank" rel="noopener noreferrer">{' '}{website}</a>
+                  <a href={website} target="_blank" rel="noopener noreferrer">
+                    {" "}
+                    {website}
+                  </a>
                 </React.Fragment>
               )}
-              <CalendarToday  color="primary" />
-              <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+              <CalendarToday color="primary" />
+              <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
             </div>
+            <Tooltip title="logout" placement="top">
+              <IconButton onClick={this.handleLogOut}>
+                <KeyboardReturn />
+              </IconButton>
+            </Tooltip>
+            <EditDetails />
           </div>
         </Paper>
       ) : (
         <Paper className={classes.paper}>
-        <Typography variant="body2" align="center">
-        no profile  found please login again
-        <div className={classes.buttons}>
-            <Buttton variant="contained" color="primary" component={Link}   to="/login">
-            login
-
-            </Buttton>
-            <Buttton variant="contained" color="primary" component={Link}   to="/signup">
+          <Typography variant="body2" align="center">
+            no profile found please login again
+            <div className={classes.buttons}>
+              <Buttton
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/login"
+              >
+                login
+              </Buttton>
+              <Buttton
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/signup"
+              >
                 Sign up
-                </Buttton>
-        </div>
-
-        </Typography>
-
+              </Buttton>
+            </div>
+          </Typography>
         </Paper>
       )
     ) : (
@@ -125,19 +149,22 @@ class Profile extends Component {
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  logoutUser : PropTypes.func.isRequired,
-  uploadImage : PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired
 };
 const mapStateToProps = state => {
   return {
     user: state.user
   };
 };
-const mapActionsToProps  = dispatch =>{
-return {
-  logoutUser : ()=>dispatch(logoutUser()),
-  uploadImage : (formData)=>dispatch(uploadImage(formData))
-}
-}
+const mapActionsToProps = dispatch => {
+  return {
+    logoutUser: () => dispatch(logoutUser()),
+    uploadImage: formData => dispatch(uploadImage(formData))
+  };
+};
 
-export default connect(mapStateToProps,mapActionsToProps)(withStyles(styles)(Profile));
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(Profile));
