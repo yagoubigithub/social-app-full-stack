@@ -38,7 +38,7 @@ exports.postOneScream = (req, res) => {
     .then(doc => {
       const resScream = newScream;
       resScream.screamId = doc.id;
-      return res.json({ resScream });
+      return res.json({ ...resScream });
     })
     .catch(error => {
       console.log(error);
