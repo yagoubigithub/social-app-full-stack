@@ -13,7 +13,10 @@ export const getScreams = ()=> dispatch=>{
 
 
     axios.get('/screams').then(res=>{
-        dispatch({type : SET_SCREAMS,payload :  res.data})
+        dispatch({
+            type : SET_SCREAMS,
+            payload : res.data
+        })
     })
     .catch(error=>{
         console.log(error)
@@ -22,4 +25,31 @@ export const getScreams = ()=> dispatch=>{
             payload : []
         })
     })
+}
+
+//Like scream
+
+export const likeScream = (screamId) => dispatch =>{
+    axios.get(`/scream/${screamId}/like`)
+    .then(res=>{
+        dispatch({
+            type : LIKE_SCREAM,
+            payload : res.data
+        })
+    })
+    .catch(error=>console.log(error))
+}
+
+
+//Unlike scream 
+
+export const unlikeScream = (screamId) => dispatch =>{
+    axios.get(`/scream/${screamId}/unlike`)
+    .then(res=>{
+        dispatch({
+            type : UNLIKE_SCREAM,
+            payload : res.data
+        })
+    })
+    .catch(error=>console.log(error))
 }
