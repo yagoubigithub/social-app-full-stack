@@ -4,6 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
+import MyButton from '../util/MyButton';
 
 //icons
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -16,8 +17,6 @@ import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import Buttton from "@material-ui/core/Button";
 import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
 import Paper from "@material-ui/core/Paper";
 
 //redux
@@ -71,11 +70,13 @@ class Profile extends Component {
                 id="imageInput"
                 onChange={this.handleImageChange}
               />
-              <Tooltip title="Edit image profile" placement="top">
-                <IconButton onClick={this.handleEditPicture} color="secondary">
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
+              <MyButton
+                tip="Edit profile picture"
+                onClick={this.handleEditPicture}
+                btnClassName="button"
+              >
+                <EditIcon color="primary" />
+              </MyButton>
             </div>
             <hr />
             <div className="profile-details">
@@ -113,11 +114,9 @@ class Profile extends Component {
               <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
               <hr />
             </div>
-            <Tooltip title="logout" placement="top">
-              <IconButton onClick={this.handleLogOut}>
-                <KeyboardReturn />
-              </IconButton>
-            </Tooltip>
+            <MyButton tip="Logout" onClick={this.handleLogOut}>
+              <KeyboardReturn color="primary" />
+            </MyButton>
             <EditDetails />
           </div>
         </Paper>
