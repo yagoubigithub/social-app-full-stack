@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import EditDetails from '../components/EditDetails'
+import EditDetails from "./EditDetails";
 
 //icons
 import LocationOn from "@material-ui/icons/LocationOn";
@@ -24,14 +24,18 @@ import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../redux/actions/userActions";
 
-const styles = theme => ({
-  ...theme.spreadThis
-});
+const styles = theme => {
+  theme.spreadThis["button"] = {
+    float: "right"
+  };
+  return {
+    ...theme.spreadThis
+  };
+};
 class Profile extends Component {
-
-  handleLogOut= () =>{
+  handleLogOut = () => {
     this.props.logoutUser();
-  }
+  };
 
   handleImageChange = event => {
     const image = event.target.files[0];
@@ -94,7 +98,7 @@ class Profile extends Component {
                   <span>{location}</span>
                 </React.Fragment>
               )}
-
+              <hr />
               {website && (
                 <React.Fragment>
                   <LinkIcon color="primary" />
@@ -104,8 +108,10 @@ class Profile extends Component {
                   </a>
                 </React.Fragment>
               )}
+              <hr />
               <CalendarToday color="primary" />
               <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
+              <hr />
             </div>
             <Tooltip title="logout" placement="top">
               <IconButton onClick={this.handleLogOut}>
@@ -119,7 +125,7 @@ class Profile extends Component {
         <Paper className={classes.paper}>
           <Typography variant="body2" align="center">
             no profile found please login again
-            <div className={classes.buttons}>
+            <div className={classes.button}>
               <Buttton
                 variant="contained"
                 color="primary"
