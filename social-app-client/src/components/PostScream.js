@@ -5,8 +5,6 @@ import MyButton from "../util/MyButton";
 
 //Mui staff
 
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,13 +16,14 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 //Redux
 import { connect } from "react-redux";
-import { postScream } from "../redux/actions/dataActions";
+import { postScream,clearErrors } from "../redux/actions/dataActions";
 
 const styles = theme => {
     return {
       ...theme.spreadThis,
       submitButton : {
-          position :  'relative'
+          position :  'relative',
+          float :  'right'
       },
       progressSpinner : {
           position : "absolute"
@@ -32,7 +31,8 @@ const styles = theme => {
       closeButton: {
 
         position :  'absolute',
-        left : '90%'
+        left : '90%',
+        top  : '1%'
        }
     };
   };
@@ -50,15 +50,17 @@ class PostScream extends Component {
 
       if(!nextProps.UI.errors && !nextProps.UI.loading){
           this.setState({
-              body :  ''
+              body :  '',
+              open: false , errors :{}
           })
-          this.handleClose();
+          
       }
   }
   handleOpen = () => {
     this.setState({ open: true });
   };
   handleClose = () => {
+    this.props.clearErrors();
     this.setState({ open: false , errors :{}});
   };
   handleChange = (event)=>{
@@ -129,13 +131,15 @@ class PostScream extends Component {
 
 PostScream.propTypes = {
   postScream: PropTypes.func.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
+  clearErrors : PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   UI: state.UI
 });
 const mapActionsToProps = dispatch => ({
-  postScream: body => dispatch(postScream(body))
+  postScream: body => dispatch(postScream(body)),
+  clearErrors : ()=> dispatch(clearErrors())
 });
 export default connect(
   mapStateToProps,

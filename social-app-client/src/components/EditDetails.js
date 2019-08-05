@@ -8,8 +8,6 @@ import { editDetails } from "../redux/actions/userActions";
 
 //Mui staff
 
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 import  Dialog  from "@material-ui/core/Dialog";
 import  DialogTitle  from "@material-ui/core/DialogTitle";
 import  DialogActions  from "@material-ui/core/DialogActions";
