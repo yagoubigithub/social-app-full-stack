@@ -7,19 +7,18 @@ import { Link } from "react-router-dom";
 
 //Mui
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 //icons
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import ChatIcon  from '@material-ui/icons/Chat'
 //Redux
 import { connect } from "react-redux";
 import { getScream } from "../redux/actions/dataActions";
+import LikeButton from "./LikeButton";
 
 const styles = (theme) => {
   return {
@@ -104,6 +103,12 @@ class ScreamDialog extends Component {
           <Typography  variant="body1" >
               {body}
           </Typography>
+          <LikeButton screamId={screamId} />
+          <span>{likeCount} likes</span>
+          <MyButton tip="comments">
+            <ChatIcon color="primary" />
+          </MyButton>
+          <span>{commentCount} comments</span>
         </Grid>
       </Grid>
     );

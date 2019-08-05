@@ -16,7 +16,7 @@ import Typography from "@material-ui/core/Typography";
 
 //Redux
 import { connect } from "react-redux";
-import { likeScream, unlikeScream } from "../redux/actions/dataActions";
+
 
 //icons
 import ChatIcon  from '@material-ui/icons/Chat'
