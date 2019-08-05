@@ -6,6 +6,7 @@ import {
     DELETE_SCREAM,
     POST_SCREAM,
     SET_SCREAM,
+    SUBMIT_COMMENT,
   } from "../types";
 
   const initialState = {
@@ -30,7 +31,7 @@ import {
             state.screams[index] = action.payload;
 
             if(state.scream.screamId === action.payload.screamId){
-                state.scream = action.payload;
+                state.scream = {comments : state.scream.comments,...action.payload};
             }
             return {
                 ...state
@@ -56,6 +57,16 @@ import {
             ...state,
             scream : action.payload,
         }
+        case SUBMIT_COMMENT  :
+          
+            return {
+                ...state,
+                scream :{
+                    ...state.scream,
+                    comments : [action.payload,...state.scream.comments]
+                }
+                
+            }
         default :
         return state;
     
