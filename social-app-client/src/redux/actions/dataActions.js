@@ -34,19 +34,20 @@ export const getScreams = ()=> dispatch=>{
     })
 }
 // get one scream
-export const getScream = screamId => dispatch =>{
+export const getScream = (screamId) => dispatch =>{
 
-    axios.get(`/scream/${screamId}`)
-    .then(res=>{
-        dispatch({
-            type : SET_SCREAM,
-            payload :  res.data
-        });
-        dispatch({type : STOP_LOADING_UI})
+
+    dispatch({type : LOADING_UI});
+    axios
+    .get(`/scream/${screamId}`)
+    .then((res) => {
+      dispatch({
+        type: SET_SCREAM,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING_UI });
     })
-    .catch(error=>{
-        console.log(error);
-    })
+    .catch((err) => console.log(err.response.data));
 }
 
 //Post a scream 
