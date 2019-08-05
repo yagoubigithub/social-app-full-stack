@@ -7,7 +7,9 @@ import {
     LOADING_UI,
     POST_SCREAM,
     SET_ERRORS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    SET_SCREAM,
+    STOP_LOADING_UI
   } from "../types";
 import axios  from 'axios';
 
@@ -29,6 +31,21 @@ export const getScreams = ()=> dispatch=>{
             type : SET_SCREAMS,
             payload : []
         })
+    })
+}
+// get one scream
+export const getScream = screamId => dispatch =>{
+
+    axios.get(`/scream/${screamId}`)
+    .then(res=>{
+        dispatch({
+            type : SET_SCREAM,
+            payload :  res.data
+        });
+        dispatch({type : STOP_LOADING_UI})
+    })
+    .catch(error=>{
+        console.log(error);
     })
 }
 
