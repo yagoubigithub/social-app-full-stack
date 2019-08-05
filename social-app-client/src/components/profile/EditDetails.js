@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 
 import { connect } from "react-redux";
-import { editDetails } from "../redux/actions/userActions";
+import { editDetails } from "../../redux/actions/userActions";
 
 //Mui staff
 

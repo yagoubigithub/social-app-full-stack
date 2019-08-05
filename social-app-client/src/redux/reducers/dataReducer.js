@@ -5,9 +5,7 @@ import {
     UNLIKE_SCREAM,
     DELETE_SCREAM,
     POST_SCREAM,
-    STOP_LOADING_UI,
     SET_SCREAM,
-    LOADING_UI
   } from "../types";
 
   const initialState = {

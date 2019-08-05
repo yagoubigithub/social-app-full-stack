@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 //Mui staff
 
@@ -16,7 +16,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 //Redux
 import { connect } from "react-redux";
-import { postScream,clearErrors } from "../redux/actions/dataActions";
+import { postScream,clearErrors } from "../../redux/actions/dataActions";
 
 const styles = theme => {
     return {

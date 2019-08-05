@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import MyButton from '../util/MyButton'
+import MyButton from '../../util/MyButton'
 import { Link } from "react-router-dom/";
-import PostScream from './PostScream';
+import PostScream from '../screams/PostScream';
 
 
 //Mui staff
