@@ -4,6 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../../util/MyButton";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import Comments from './Comments';
 
 //Mui
 import Dialog from "@material-ui/core/Dialog";
@@ -28,10 +29,6 @@ const styles = (theme) => {
         height: 200,
         borderRadius: '50%',
         objectFit: 'cover'
-      },
-      dialogContent : {
-          padding: 10,
-        
       },
       closeButton : {
           position : 'absolute',
@@ -82,7 +79,7 @@ class ScreamDialog extends Component {
         <CircularProgress size={200} thickness={2} />
       </div>
     ) : (
-      <Grid container spacing={10}>
+      <Grid container spacing={4}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -110,6 +107,8 @@ class ScreamDialog extends Component {
           </MyButton>
           <span>{commentCount} comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <Comments comments={comments} />
       </Grid>
     );
     return (
@@ -127,6 +126,7 @@ class ScreamDialog extends Component {
           onClose={this.handleClose}
           fullWidth
           maxWidth="sm"
+          
         >
           <MyButton
             tip="close"

@@ -47,7 +47,7 @@ export const getScream = (screamId) => dispatch =>{
       });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch((err) => console.log(err.response.data));
+    .catch((err) => console.log(err));
 }
 
 //Post a scream 
