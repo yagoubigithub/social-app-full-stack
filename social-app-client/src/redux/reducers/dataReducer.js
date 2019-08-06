@@ -13,6 +13,7 @@ import {
     screams :[]
   }
   export default function(state = initialState, action) {
+      let i = 0;
       switch(action.type){
           case LOADING_DATA :
               return {
@@ -37,7 +38,7 @@ import {
                 ...state
             }
         case DELETE_SCREAM : 
-         const i = state.screams.findIndex((scream)=> scream.screamId === action.payload);
+          i = state.screams.findIndex((scream)=> scream.screamId === action.payload);
              state.screams.splice(i, 1)  ;
 
             return {
@@ -58,7 +59,9 @@ import {
             scream : action.payload,
         }
         case SUBMIT_COMMENT  :
-          
+          i = state.screams.findIndex(scream=>scream.screamId === action.payload.screamId);
+          state.screams[i].commentCount++;
+          state.scream.commentCount++;
             return {
                 ...state,
                 scream :{
