@@ -3,17 +3,14 @@ import PropTypes from "prop-types";
 import NoImg from "../images/no-img.png";
 import withStyles from "@material-ui/core/styles/withStyles";
 //Mui
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
+
 import Paper from "@material-ui/core/Paper";
 
 //icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
-import EditIcon from "@material-ui/icons/Edit";
-import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
+
 
 const styles = theme => ({
   ...theme.spreadThis,
