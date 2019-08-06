@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import NoImg from "../images/no-img.png";
 import withStyles from "@material-ui/core/styles/withStyles";

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Scream from '../components/screams/Scream';
 import StaticProfile from '../components/profile/StaticProfile';
 import ScreamSkelton from '../util/ScreamSkelton';
+import ProfileSkelton from '../util/ProfileSkelton';
 
 //Mui staff
 import Grid from '@material-ui/core/Grid';
@@ -62,7 +63,7 @@ import {getUserData} from '../redux/actions/dataActions'
 
         <Grid item xs={12} sm={4}>
          {
-             this.state.profile === null ? <p>loading...</p> 
+             this.state.profile === null ? <ProfileSkelton />
              :
              <StaticProfile profile={this.state.profile} />
          }
