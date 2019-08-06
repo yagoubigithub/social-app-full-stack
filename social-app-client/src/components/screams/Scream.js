@@ -38,7 +38,9 @@ const styles = {
 };
 
 class Scream extends Component {
-  
+  state= {
+    openDialog : this.props.openDialog
+  }
   render() {
     dayjs.extend(relativeTime);
     const {
@@ -86,7 +88,7 @@ class Scream extends Component {
             <ChatIcon color="primary" />
           </MyButton>
           <span>{commentCount} comments</span>
-          <ScreamDialog screamId={screamId} userHandle={userHandle} />
+          <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog={this.state.openDialog} />
         </CardContent>
       </Card>
     );
@@ -94,7 +96,10 @@ class Scream extends Component {
 }
 Scream.propTypes = {
   
-  user : PropTypes.object.isRequired
+  user : PropTypes.object.isRequired,
+  classes : PropTypes.object.isRequired,
+  scream : PropTypes.object.isRequired,
+  openDialog : PropTypes.bool
 };
 
 const mapStateToProps = state =>({
