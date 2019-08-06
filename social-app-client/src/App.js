@@ -25,8 +25,11 @@ import AuthRoute from './util/AuthRoute'
 
 const theme = createMuiTheme(themeObject)
 
-let authenticated;
+
 const token  = localStorage.FBIdToken;
+
+axios.defaults.baseURL = "https://europe-west1-social-media-app-7046a.cloudfunctions.net/api";
+
 
 if(token){
 
@@ -41,7 +44,7 @@ if(token){
     store.dispatch(getUserData());
   }
 }
-console.log(authenticated)
+
 
 class App extends Component  {
 
