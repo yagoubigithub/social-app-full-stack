@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
-
+import ScreamSkelton from '../util/ScreamSkelton';
 
 import Scream from '../components/screams/Scream';
 import Profile from '../components/profile/Profile';
@@ -21,7 +21,9 @@ class home extends Component {
 
       let recentScreamMarkup =  !loading ? 
       screams.map(scream=> <Scream key={scream.screamId}  scream={scream} />) : 
-      <p>Loading ...</p>
+    (
+      <ScreamSkelton />
+    )
 
     return (
       <Grid container spacing={10}>

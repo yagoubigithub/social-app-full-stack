@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Scream from '../components/screams/Scream';
 import StaticProfile from '../components/profile/StaticProfile';
+import ScreamSkelton from '../util/ScreamSkelton';
 
 //Mui staff
 import Grid from '@material-ui/core/Grid';
@@ -38,7 +39,7 @@ import {getUserData} from '../redux/actions/dataActions'
         const {screams , loading} = this.props.data;
         const {screamIdParam} = this.state;
         const screamsMarkup  =loading ? (
-            <p>loading ...</p>
+            <ScreamSkelton />
         ): screams === null ? (
             <p>No screams from this user</p>
         ): ! screamIdParam ?(

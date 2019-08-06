@@ -124,7 +124,7 @@ class Profile extends Component {
         <Paper className={classes.paper}>
           <Typography variant="body2" align="center">
             no profile found please login again
-            <p className={classes.button}>
+            <span className={classes.button}>
               <Buttton
                 variant="contained"
                 color="primary"
@@ -141,7 +141,7 @@ class Profile extends Component {
               >
                 Sign up
               </Buttton>
-            </p>
+            </span>
           </Typography>
         </Paper>
       )
