@@ -1,3 +1,7 @@
 /social-app-client/node_modules/
 package-lock.json
 /socialapp-functions/node_modules/
+/social-app-client/.firebase/
+/social-app-client/.firebaserc
+/social-app-client/firebase.json
+/node_modules
